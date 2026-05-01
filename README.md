@@ -85,8 +85,3 @@ streamlit run app.py
 
 
 ⭐ If you like this project, feel free to star the repo!
-
-
-
-- make your profile look 🔥 professional
-```

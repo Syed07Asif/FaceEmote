@@ -1,6 +1,5 @@
 import sys
 import os
-
 sys.path.append(os.path.abspath("."))
 
 import streamlit as st
@@ -8,7 +7,6 @@ import cv2
 import numpy as np
 from PIL import Image
 import time
-import os
 from collections import deque
 
 from src.emotion.predictor import predict_emotion
@@ -18,15 +16,8 @@ st.set_page_config(page_title="Emotion AI", layout="wide")
 st.title("🧠 Emotion Detection System")
 st.write("Custom-trained CNN model for facial emotion recognition")
 
-# 🔥 Deployment toggle
-DEPLOY_MODE = os.environ.get("DEPLOY", "false") == "true"
-
 # Sidebar
-modes = ["Image Upload"]
-if not DEPLOY_MODE:
-    modes.append("Webcam")
-
-mode = st.sidebar.radio("Choose Mode", modes)
+mode = st.sidebar.radio("Choose Mode", ["Image Upload", "Webcam"])
 
 st.sidebar.markdown("### About")
 st.sidebar.write("CNN model trained on FER dataset")
@@ -91,7 +82,7 @@ elif mode == "Webcam":
             if emotion:
                 st.session_state.history.append(emotion)
 
-                # 🔥 smoothing
+                # smoothing
                 smooth_emotion = max(
                     set(st.session_state.history),
                     key=st.session_state.history.count
